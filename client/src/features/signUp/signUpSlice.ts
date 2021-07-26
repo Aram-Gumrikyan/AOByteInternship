@@ -32,6 +32,7 @@ const signUpSlice = createSlice({
     })
       .addCase(fetchSignUp.fulfilled, (state, { payload }) => {
         state.loading = false;
+        state.error = false;
         state.data = "created";
       })
       .addCase(fetchSignUp.rejected, (state) => {

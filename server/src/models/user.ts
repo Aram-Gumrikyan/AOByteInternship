@@ -1,9 +1,5 @@
-import { Document, Schema, model } from "mongoose";
-import { ISignUpForm } from "../interfaces";
-
-interface IUser extends Document, ISignUpForm {
-  ip: string[];
-}
+import { Schema, model } from "mongoose";
+import { IUser } from "../interfaces";
 
 const UserSchema = new Schema<IUser>({
   fname: {

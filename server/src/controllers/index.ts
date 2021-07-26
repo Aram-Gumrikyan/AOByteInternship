@@ -1,8 +1,12 @@
 import SignUpController from "./SignUpController";
-import {IController} from "../interfaces";
+import LoginController from "./LoginController";
+import UserController from "./UserController";
+import { IController } from "../interfaces";
 
-const controllers: IController[]  = [
+const controllers: IController[] = [
   new SignUpController,
+  new LoginController,
+  new UserController,
 ]
 
 export default controllers;

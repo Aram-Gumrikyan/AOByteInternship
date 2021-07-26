@@ -2,15 +2,17 @@ import express, { Application } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import controllers from "./controllers";
 
 dotenv.config({ path: __dirname + '\\.env' });
 const app: Application = express();
 
 app.use(cors({
-	origin: "http://localhost:3000",
+	origin: ["http://localhost:3000", "http://localhost:3001"],
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 }));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 

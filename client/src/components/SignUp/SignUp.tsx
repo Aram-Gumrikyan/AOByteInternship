@@ -29,7 +29,7 @@ const SignUp: FC = () => {
     return () => {
       dispatch(clearData());
     }
-  }, [data]);
+  }, [data, history, dispatch]);
 
   const formik = useFormik<ISignUpForm>({
     initialValues: {

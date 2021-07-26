@@ -17,21 +17,24 @@ class SignUpController implements IController {
   }
 
   createUser = async (req: Request, res: Response) => {
-    const data: ISignUpForm = req.body.data;
+    try {
+      const data: ISignUpForm = req.body.data;
 
-    if (!this.validation(data)) {
+      if (!this.validation(data)) {
+        throw new Error("data is wrong");
+      }
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      data.password = hashedPassword;
+
+      const newUser = new User(data);
+      newUser.ip = [req.ip];
+      await newUser.save();
+
+      res.sendStatus(201);
+    } catch (e) {
       res.sendStatus(400);
     }
-
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    data.password = hashedPassword;
-
-    const newUser = new User(data);
-    console.log(req.ip);
-    newUser.ip = [req.socket.remoteAddress!];
-    await newUser.save();
-
-    res.sendStatus(201);
   }
 
   private validation(data: ISignUpForm): boolean {
@@ -40,10 +43,10 @@ class SignUpController implements IController {
     const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
     if (
-      !fname ||
-      !lname ||
-      !validator.isEmail(email) ||
-      !password.match(passwordRegEx)
+      fname &&
+      lname &&
+      validator.isEmail(email) &&
+      password.match(passwordRegEx)
     ) {
       return false;
     }
