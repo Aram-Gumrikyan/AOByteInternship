@@ -68,13 +68,8 @@ class LoginController implements IController {
     const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
     if (
-<<<<<<< HEAD
-      validator.isEmail(email) &&
-      password.match(passwordRegEx)
-=======
       !validator.isEmail(email) ||
       !password.match(passwordRegEx)
->>>>>>> 3de72dd (add)
     ) {
       return false;
     }

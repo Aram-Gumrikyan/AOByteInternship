@@ -1,47 +1,42 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import { IUser, IUserState } from "../../interfaces";
-import api from "../../api";
-
-export const getUserData = createAsyncThunk(
-    "user/fetchUser",
-    async () => {
-        const response: IUser = await api.post("/user");
-        console.log(response);
-        return response;
-    }
-)
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchSignUp } from "./api";
+import initialState from "./initialState";
 
 const userSlice = createSlice({
-    name: "user",
+  name: "user",
+  initialState,
+  reducers: {
+    resetSignUpData: (state) => {
+      state.signUp = {};
+    }
+  },
 
-    initialState: {
-        loading: false,
-        data: {
-            fname: "",
-            lname: "",
-            email: "",
-        },
-        error: false,
-    },
-
-    reducers: {
-
-    },
-
-    extraReducers: (builder) => {
-        builder.addCase(getUserData.pending, (state) => {
-            state.loading = true;
-        })
-            .addCase(getUserData.fulfilled, (state, { payload }) => {
-                state.loading = false;
-                state.error = false;
-                state.data = payload;
-            })
-            .addCase(getUserData.rejected, (state) => {
-                state.error = true;
-            })
-    },
+  extraReducers: (builder) => {
+    builder.addCase(fetchSignUp.pending, ({ signUp }) => {
+      signUp.loading = true;
+      signUp.error = undefined;
+    })
+      .addCase(fetchSignUp.fulfilled, ({ signUp }) => {
+        signUp.loading = false;
+        signUp.created = true;
+      })
+      .addCase(fetchSignUp.rejected, ({ signUp }, { error: { message } }) => {
+        signUp.loading = false;
+        signUp.error = message;
+      })
+    // builder.addCase(getUserData.pending, (state) => {
+    //   state.loading = true;
+    // })
+    //   .addCase(getUserData.fulfilled, (state, { payload }) => {
+    //     state.loading = false;
+    //     state.error = false;
+    //     state.data = payload;
+    //   })
+    //   .addCase(getUserData.rejected, (state) => {
+    //     state.error = true;
+    //   })
+  },
 })
 
+export const { resetSignUpData } = userSlice.actions;
 export default userSlice;

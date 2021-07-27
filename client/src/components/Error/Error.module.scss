@@ -1,0 +1,22 @@
+.error{
+    position: absolute;
+    width: 100vw;
+    background-color: red;
+    top: 0;
+    height: 5vh;
+    animation-name: errorAnimation;
+    animation-duration: 3s;
+    text-align: center;
+    font-size: 2rem;
+    overflow: hidden;
+}
+
+@keyframes errorAnimation{
+    0%{height: 0;}
+    50%{height: 5vh}
+    100%{height: 0;}
+}
+
+.closed{
+    display: none;
+}

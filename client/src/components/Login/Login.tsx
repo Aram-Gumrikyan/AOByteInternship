@@ -7,13 +7,13 @@ import Cookies from 'universal-cookie';
 import classNames from "classnames";
 
 import { ILoginForm, IState } from "../../interfaces";
-import { fetchLogin } from "../../features/login/loginSlice"
 import { loginSchema } from "../../validation";
+import { fetchLogin } from "../../features/user/api";
 import Loading from "../Loading";
 import styles from "./Login.module.scss";
 
 const Login: FC = () => {
-  const { loading, data: { token }, error } = useSelector((state: IState) => state.login);
+  const { loading, token, error } = useSelector((state: IState) => state.user.login);
   const dispatch = useDispatch();
   const history = useHistory();
   const cookies = useMemo(() => {

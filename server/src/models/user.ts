@@ -12,6 +12,15 @@ const UserSchema = new Schema<IUser>({
     trim: true,
     required: true,
   },
+  role: {
+    type: String,
+    require: true,
+  },
+  phoneNumber: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -21,10 +30,6 @@ const UserSchema = new Schema<IUser>({
     type: String,
     require: true,
   },
-  ip: {
-    type: Array,
-    require: true,
-  }
 });
 
 const User = model<IUser>("users", UserSchema);

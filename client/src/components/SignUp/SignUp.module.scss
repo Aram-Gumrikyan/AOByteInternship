@@ -5,7 +5,31 @@
   align-items: center;
   justify-content: center;
 
-  :global(.fields){
-    justify-content: center;
+  .submitButton{
+    margin: 0 auto !important;
   }
+  
+  :global(.fields){
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+
+    @media screen and (max-width: 380px){
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.label{
+  display: block;
+  margin: 0 0 .28571429rem 0;
+  color: rgba(0,0,0,.87);
+  font-size: .92857143em;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.roleSelector{
+  position: relative;
+  width: 95%;
+  left: 5px;
 }

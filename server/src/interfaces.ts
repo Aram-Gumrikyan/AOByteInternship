@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 import express from "express"
 
 export interface IController {
@@ -6,17 +5,15 @@ export interface IController {
   router: express.Router;
 }
 
+export interface IUser extends ISignUpForm {
+  ip: string[];
+}
+
 export interface ISignUpForm {
   fname: string;
   lname: string;
+  role: "employer" | "employee" | "";
+  phoneNumber: string;
   email: string;
   password: string;
-}
-
-<<<<<<< HEAD
-export interface IUser extends ISignUpForm {
-=======
-export interface IUser extends ISignUpForm, Document {
->>>>>>> 3de72dd (add)
-  ip: string[];
 }

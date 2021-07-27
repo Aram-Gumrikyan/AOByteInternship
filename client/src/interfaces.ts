@@ -1,17 +1,21 @@
+export enum Role {
+  EMPLOYER = "employer",
+  EMPLOYEE = "employee",
+}
+
 export interface IState {
-  signUp: ISignUpState;
-  login: ILoginState;
   user: IUserState;
 }
 
-export interface ISignUpState extends IInitialState {
-  data: string;
-}
-
-export interface ISignUpForm {
+interface IUserData {
   fname: string;
   lname: string;
+  role: Role | "";
+  phoneNumber: string;
   email: string;
+}
+
+export interface ISignUpForm extends IUserData {
   password: string;
 }
 
@@ -20,23 +24,26 @@ export interface ILoginForm {
   password: string;
 }
 
-export interface ILoginState extends IInitialState {
-  data: {
-    token?: string;
-  };
+export interface IUserState {
+  registered: boolean;
+  data: IUserData | {};
+  signUp: IUserSignUpState;
+  login: IUserLoginState;
 }
 
-export interface IUser {
-  fname: string;
-  lname: string;
-  email: string;
+interface ILogError {
+  loading?: boolean;
+  error?: string;
 }
 
-export interface IUserState extends IInitialState {
-  data: IUser;
+interface IUserSignUpState extends ILogError {
+  created?: boolean;
 }
 
-interface IInitialState {
-  loading: boolean;
-  error: boolean;
+interface IUserLoginState extends ILogError {
+  token?: string;
+}
+
+export interface IErrorMessage {
+  [key: string]: string;
 }
